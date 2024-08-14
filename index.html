@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anand Kumar - Web Developer</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Anand Kumar</h1>
-            <p>Web Developer | Java | Spring Framework | ReactJS</p>
+            <div class="header-content">
+                <h1>Anand Kumar</h1>
+                <p>Web Developer | Java | Spring Framework | ReactJS</p>
+            </div>
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
@@ -27,7 +30,10 @@
     <section id="about">
         <div class="container">
             <h2>About Me</h2>
-            <p>I am a dedicated Web Developer with expertise in backend development using Java and Spring Framework, and frontend technologies including HTML, CSS, JavaScript, and ReactJS. I have a proven track record of enhancing digitalization and reducing reliance on traditional data storage methods through innovative web applications. I am also certified in AWS Cloud Foundations and Data Analytics with Python.</p>
+            <div class="about-content">
+                <img src="your-profile-pic.jpg" alt="Anand Kumar" class="profile-pic">
+                <p>I am a dedicated Web Developer with expertise in backend development using Java and Spring Framework, and frontend technologies including HTML, CSS, JavaScript, and ReactJS. I have a proven track record of enhancing digitalization and reducing reliance on traditional data storage methods through innovative web applications. I am also certified in AWS Cloud Foundations and Data Analytics with Python.</p>
+            </div>
         </div>
     </section>
 
@@ -36,21 +42,27 @@
             <h2>Skills</h2>
             <div class="skills-grid">
                 <div class="skill">
+                    <img src="java-icon.png" alt="Java">
                     <h3>Java</h3>
                 </div>
                 <div class="skill">
+                    <img src="spring-icon.png" alt="Spring Framework">
                     <h3>Spring Framework</h3>
                 </div>
                 <div class="skill">
+                    <img src="react-icon.png" alt="ReactJS">
                     <h3>ReactJS</h3>
                 </div>
                 <div class="skill">
+                    <img src="html-css-js-icon.png" alt="HTML, CSS, JavaScript">
                     <h3>HTML, CSS, JavaScript</h3>
                 </div>
                 <div class="skill">
+                    <img src="mysql-icon.png" alt="MySQL, MongoDB">
                     <h3>MySQL, MongoDB</h3>
                 </div>
                 <div class="skill">
+                    <img src="aws-icon.png" alt="AWS Cloud">
                     <h3>AWS Cloud</h3>
                 </div>
             </div>
@@ -89,10 +101,12 @@
             <h2>Projects</h2>
             <div class="projects-grid">
                 <div class="project">
+                    <img src="project1-thumbnail.jpg" alt="Automated Challan System">
                     <h3>Automated Challan System</h3>
                     <p>Developed an Automated Challan System using Java, SQL, and JDBC for backend processing, and HTML, CSS, and JavaScript for the frontend interface. The system streamlined the creation and management of challans, reducing manual errors and improving efficiency.</p>
                 </div>
                 <div class="project">
+                    <img src="project2-thumbnail.jpg" alt="Facial Expression Detection">
                     <h3>Facial Expression Detection</h3>
                     <p>Developed a Facial Expression Detection system using Python, OpenCV, TensorFlow, and Keras. Implemented deep learning models to accurately identify and classify various facial expressions from real-time video feeds and images.</p>
                 </div>
@@ -121,6 +135,11 @@
     <section id="contact">
         <div class="container">
             <h2>Contact Me</h2>
+            <div class="contact-info">
+                <p><strong>Email:</strong> anandkumar@example.com</p>
+                <p><strong>Phone:</strong> +91 12345 67890</p>
+                <p><strong>Location:</strong> Bangalore, India</p>
+            </div>
             <form action="submit_form.php" method="post">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -138,4 +157,16 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Anand
+            <p>&copy; 2024 Anand Kumar. All rights reserved.</p>
+            <p>
+                <a href="https://www.linkedin.com/in/anand-kumar-51b521194">LinkedIn</a> | 
+                <a href="https://www.hackerrank.com/profile/anandkumar292000">HackerRank</a> |
+                <a href="https://github.com/anandkumarweb">GitHub</a> |
+                <a href="https://anandkumar.dev">Personal Website</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
