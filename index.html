@@ -1,194 +1,928 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anand Kumar - Web Developer</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animated Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #050816;
+      --card: rgba(255,255,255,0.08);
+      --text: #ffffff;
+      --primary: #7b61ff;
+      --secondary: #00d4ff;
+      --light: #b9b9ff;
+      --border: rgba(255,255,255,0.12);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123,97,255,0.35), transparent 70%);
+      top: -120px;
+      left: -120px;
+      z-index: -1;
+      animation: floatGlow 10s infinite alternate ease-in-out;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(0,212,255,0.2), transparent 70%);
+      bottom: -100px;
+      right: -100px;
+      z-index: -1;
+      animation: floatGlow2 12s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translateY(0px) translateX(0px); }
+      100% { transform: translateY(60px) translateX(40px); }
+    }
+
+    @keyframes floatGlow2 {
+      0% { transform: translateY(0px) translateX(0px); }
+      100% { transform: translateY(-50px) translateX(-30px); }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(15px);
+      background: rgba(5,8,22,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      transition: 0.4s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 120px 8% 80px;
+      position: relative;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1;
+      animation: fadeUp 1.2s ease;
+    }
+
+    .hero-text h1 {
+      font-size: 68px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text p {
+      color: #d6d6d6;
+      line-height: 1.8;
+      font-size: 18px;
+      max-width: 650px;
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 30px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      color: white;
+      box-shadow: 0 10px 35px rgba(123,97,255,0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.03);
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: floatCard 5s infinite ease-in-out;
+    }
+
+    .profile-card {
+      width: 370px;
+      height: 480px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(var(--primary), transparent);
+      top: -50px;
+      right: -50px;
+      border-radius: 50%;
+      filter: blur(40px);
+    }
+
+    .profile-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.92;
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 52px;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, white, #9999ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-title p {
+      color: #bdbdbd;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .glass-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 35px;
+      transition: 0.5s;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(255,255,255,0.08), transparent);
+      transform: translateX(-100%);
+      transition: 0.8s;
+    }
+
+    .glass-card:hover::before {
+      transform: translateX(100%);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 45px rgba(123,97,255,0.25);
+      border-color: rgba(123,97,255,0.5);
+    }
+
+    .glass-card h3 {
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .glass-card p {
+      line-height: 1.8;
+      color: #d6d6d6;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .skill-box {
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.4s;
+    }
+
+    .skill-box:hover {
+      transform: scale(1.04);
+      border-color: var(--secondary);
+    }
+
+    .skill-bar {
+      height: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      width: 0;
+      transition: 2s ease;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.5s;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-12px) rotateX(4deg);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    }
+
+    .project-image {
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.7s;
+    }
+
+    .project-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .project-content {
+      padding: 25px;
+    }
+
+    .project-content h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .project-content p {
+      color: #d2d2d2;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 8px 14px;
+      border-radius: 50px;
+      background: rgba(123,97,255,0.15);
+      border: 1px solid rgba(123,97,255,0.3);
+      font-size: 13px;
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact-box {
+      max-width: 700px;
+      margin: auto;
+      padding: 50px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .contact-box h2 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    .contact-box p {
+      line-height: 1.8;
+      color: #d7d7d7;
+      margin-bottom: 30px;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .social {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      cursor: pointer;
+      transition: 0.4s;
+      font-size: 22px;
+    }
+
+    .social:hover {
+      transform: translateY(-10px) rotate(10deg);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+    }
+
+    .contact-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s ease;
+      z-index: 2000;
+    }
+
+    .contact-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      width: 90%;
+      max-width: 520px;
+      padding: 45px;
+      border-radius: 28px;
+      background: rgba(10,15,35,0.9);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+      position: relative;
+      animation: fadeUp 0.5s ease;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      font-size: 38px;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .contact-detail {
+      margin: 22px 0;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .contact-detail a {
+      color: #9f8bff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .contact-detail a:hover {
+      color: white;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-modal:hover {
+      transform: rotate(90deg);
+      color: var(--secondary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #aaa;
+    }
+
+    .hidden {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s ease;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media(max-width: 900px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .hero-text h1 {
+        font-size: 48px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .profile-card {
+        width: 300px;
+        height: 400px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <h1>Anand Kumar</h1>
-                
-                <p>Engineer, Support-Web Development, Minda Corporation Limited</p>
-                 <p>
-                <a href="https://www.linkedin.com/in/anand-kumar-51b521194"><img src="linkdin.png" height="40px" width="40px"></a> 
-                <a href="https://www.hackerrank.com/profile/anandkumar292000"><img src="hackerrank.png"  height="40px" width="40px"></a> 
-                <a href="https://github.com/anand294"><img src="github.png"  height="50px" width="50px"></a> 
-               
-            </p>
-                
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#certifications">Certifications</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <div class="about-content">
-               
-                <p>I am a dedicated Web Developer with expertise in backend development using Java and Spring Framework, and frontend technologies including HTML, CSS, JavaScript, and ReactJS. I have a proven track record of enhancing digitalization and reducing reliance on traditional data storage methods through innovative web applications. I am also certified in AWS Cloud Foundations and Data Analytics with Python.</p>
-            </div>
-        </div>
-    </section>
+  <nav>
+    <div class="logo">PORTFOLIO</div>
 
-    <section id="skills">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill">
-                    <img src="java.png" alt="Java">
-                   
-                </div>
-                 <div class="skill">
-                    <img src="c++.png" alt="C++">
-                   
-                </div>
-                 <div class="skill">
-                    <img src="python.png" alt="Python">
-                   
-                </div>
-                <div class="skill">
-                    <img src="springboot.png" alt="Spring Framework">
-                   
-                </div>
-                <div class="skill">
-                    <img src="react.png" alt="ReactJS">
-                    
-                </div>
-                <div class="skill">
-                    <img src="htmlcssjs.png" alt="HTML, CSS, JavaScript">
-                   
-                </div>
-                <div class="skill">
-                    <img src="mysql.png" alt="MySQL">
-                   
-                </div>
-                <div class="skill">
-                    <img src="aws.png" alt="AWS Cloud">
-                   
-                </div>
-                <div class="skill">
-                    <img src="tomcat.png" alt="Tomcat">
-                   
-                </div>
-                 <div class="skill">
-                    <img src="git.png" alt="AWS Cloud">
-                   
-                </div>
-                <div class="skill">
-                    <img src="github.png" alt="Github">
-                   
-                </div>
-                 <div class="skill">
-                    <img src="postman.png" alt="Postman">
-                   
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#volunteering">Activities</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-    <section id="experience">
-        <div class="container">
-            <h2>Experience</h2>
-            <div class="experience-grid">
-                <div class="experience">
-                    <h3>Engineer, Support - Web Development</h3>
-                    <h4>Minda Corporation Limited, Spark Minda Group (July 2024 - Present)</h4>
-                    <ul>
-                        <li>Developed web applications to enhance digitalization and reduce reliance on traditional data storage methods.</li>
-                        <li>Utilized Java with Spring framework for backend development and HTML, CSS, JavaScript, jQuery, JSP, and Bootstrap for frontend development.</li>
-                        <li>Implemented AJAX for frontend-backend communication and HTML emails for notifications via Office365 SMTP server.</li>
-                        <li>Employed Tomcat 9.0 for project hosting and MySQL 8 for data storage.</li>
-                        <li>Led or contributed to the completion of 3 major projects.</li>
-                    </ul>
-                </div>
-                <div class="experience">
-                    <h3>GET, Support - Web Development</h3>
-                    <h4>Minda Corporation Limited, Spark Minda Group (July 2023 - June 2024)</h4>
-                    <ul>
-                        <li>Contributed to the development of various web applications aimed at improving operational efficiency.</li>
-                        <li>Worked closely with teams to integrate new features and ensure seamless project execution.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Hello, I'm <span>Anand Kumar</span></h1>
+      <p>
+        Java Full Stack Developer with nearly 3 years of experience building scalable enterprise applications using Java, Spring Boot, Node.js, ReactJS, PostgreSQL, Docker, Kubernetes, and cloud technologies. Passionate about modern UI, backend engineering, automation, and AI-powered digital solutions.
+      </p>
 
-    <section id="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="projects-grid">
-                <div class="project">
-                   
-                    <h3>Automated Challan System</h3>
-                    <p>Developed an Automated Challan System using Java, SQL, and JDBC for backend processing, and HTML, CSS, and JavaScript for the frontend interface. The system streamlined the creation and management of challans, reducing manual errors and improving efficiency.</p>
-                </div>
-                <div class="project">
-                   
-                    <h3>Facial Expression Detection</h3>
-                    <p>Developed a Facial Expression Detection system using Python, OpenCV, TensorFlow, and Keras. Implemented deep learning models to accurately identify and classify various facial expressions from real-time video feeds and images.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="document.getElementById('projects').scrollIntoView()">View Projects</button>
+        <button class="btn btn-secondary" onclick="window.open('anand_kumar_resume.pdf','_blank')">Download Resume</button>
+      </div>
+    </div>
 
-    <section id="certifications">
-        <div class="container">
-            <h2>Certifications</h2>
-            <div class="certifications-grid">
-                <div class="certification">
-                    <h3>AWS Academy Graduate - AWS Cloud Foundations</h3>
-                    <p>Acquired comprehensive knowledge about AWS Cloud and its essential services, including EC2, IAM, VPC, Route 53, CloudFront, EBS, Lambda, EC2 Auto Scaling, Elastic Load Balancing, CloudWatch, etc.</p>
-                    <p><a href="https://www.credly.com/go/4Oco83jJ">View Certification</a></p>
-                </div>
-                <div class="certification">
-                    <h3>Data Analytics Using Python</h3>
-                    <p>Acquired expertise in data analysis techniques using Python programming language. Developed proficiency in various statistical methods including probability theory, regression analysis, and more.</p>
-                    <p><a href="https://archive.nptel.ac.in/noc/Ecertificate/?q=NPTEL22CS08S2332253502038277">View Certification</a></p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero-image">
+      <div class="profile-card">
+        <img src="dp.jpg" alt="Profile">
+      </div>
+    </div>
+  </section>
 
-    <section id="contact">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <div class="contact-info">
-                <p><strong>Email:</strong> anandkumar@gmail.com</p>
-                <p><strong>Phone:</strong> +91 7654165473</p>
-                <p><strong>Location:</strong> Noida, India</p>
-                 <p>
-                <a href="https://www.linkedin.com/in/anand-kumar-51b521194"><img src="linkdin.png" height="40px" width="40px"></a> 
-                <a href="https://www.hackerrank.com/profile/anandkumar292000"><img src="hackerrank.png"  height="40px" width="40px"></a> 
-                <a href="https://github.com/anand294"><img src="github.png"  height="50px" width="50px"></a> 
-               
-            </p>
-            </div>
-           
-        </div>
-    </section>
+  <section id="about" class="hidden">
+    <div class="section-title">
+      <h2>About Me</h2>
+      <p>
+        Dedicated software engineer experienced in backend development using Java and Spring Boot along with frontend technologies like ReactJS, JavaScript, HTML, and CSS. Experienced in CI/CD, Docker, Kubernetes, AWS Cloud, REST APIs, and enterprise application development.
+      </p>
+    </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Anand Kumar. All rights reserved.</p>
-           
-        </div>
-    </footer>
+    <div class="about-grid">
+      <div class="glass-card">
+        <h3>Frontend</h3>
+        <p>
+          Building responsive and interactive frontend interfaces using ReactJS, AngularJS, HTML, CSS, JavaScript, jQuery, and Bootstrap.
+        </p>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="glass-card">
+        <h3>Backend</h3>
+        <p>
+          Developing scalable backend systems using Java, Spring Framework, Spring Boot, Node.js, MySQL, PostgreSQL, MongoDB, and RESTful APIs.
+        </p>
+      </div>
+
+      <div class="glass-card">
+        <h3>Creative UI</h3>
+        <p>
+          Experienced in creating enterprise digitalization platforms, dashboards, workflow automation systems, notifications, and modern UI/UX experiences.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="hidden">
+    <div class="section-title">
+      <h2>Skills</h2>
+      <p>
+        Technologies and tools I use to craft high-performance and visually engaging applications.
+      </p>
+    </div>
+
+    <div class="skills">
+      <div class="skill-box">
+        <h3>HTML / CSS</h3>
+        <div class="skill-bar">
+          <div class="skill-fill" data-width="95%"></div>
+        </div>
+      </div>
+
+      <div class="skill-box">
+        <h3>JavaScript</h3>
+        <div class="skill-bar">
+          <div class="skill-fill" data-width="90%"></div>
+        </div>
+      </div>
+
+      <div class="skill-box">
+        <h3>React</h3>
+        <div class="skill-bar">
+          <div class="skill-fill" data-width="88%"></div>
+        </div>
+      </div>
+
+      <div class="skill-box">
+        <h3>Java / Spring Boot / NodeJS</h3>
+        <div class="skill-bar">
+          <div class="skill-fill" data-width="92%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="hidden">
+    <div class="section-title">
+      <h2>Experience</h2>
+      <p>
+        Professional journey focused on enterprise application development, automation, digital transformation, and scalable software engineering.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="glass-card">
+        <h3>Truechip Solutions</h3>
+        <h4 style="color:#9d9dff; margin-bottom:15px;">Java Developer | Nov 2024 - Present</h4>
+        <p>
+          • Deployed multiple enterprise modules based on client requirements for process digitalization.<br><br>
+          • Developed automated system-generated mailers using Node Mail Service.<br><br>
+          • Worked on scalable backend development, workflow automation, and client-specific customizations.<br><br>
+          • Contributed to modern enterprise software solutions using Java and related technologies.
+        </p>
+      </div>
+
+      <div class="glass-card">
+        <h3>Minda Corporation Limited</h3>
+        <h4 style="color:#9d9dff; margin-bottom:15px;">Web Developer | Jul 2023 - Oct 2024</h4>
+        <p>
+          • Developed applications that reduced dependency on Excel-based workflows and improved digitalization.<br><br>
+          • Worked with Java, Spring Framework, JSP, JavaScript, jQuery, AJAX, and MySQL.<br><br>
+          • Integrated Office365 SMTP services for automated HTML email notifications.<br><br>
+          • Successfully contributed to and deployed multiple enterprise projects.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="volunteering" class="hidden">
+    <div class="section-title">
+      <h2>Volunteering & Activities</h2>
+      <p>
+        Contributing to social impact initiatives through education, empowerment, and community support activities.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="glass-card">
+        <h3>Ek Pehel B R Memorial Welfare Society</h3>
+        <h4 style="color:#9d9dff; margin-bottom:15px;">Student Volunteer | Jan 2022 - Apr 2022</h4>
+        <p>
+          • Participated in initiatives focused on child education, women empowerment, and healthcare awareness.<br><br>
+          • Collaborated with teams to support NGO programs and community outreach activities.<br><br>
+          • Recognized for valuable contributions toward achieving organizational social welfare goals.
+        </p>
+      </div>
+
+      <div class="glass-card">
+        <h3>Certifications</h3>
+        <p>
+          • AWS Academy Graduate – AWS Cloud Foundations.<br><br>
+          • Certified in Data Analytics Using Python by NPTEL.<br><br>
+          • Skilled in AWS services including EC2, IAM, VPC, Lambda, Route53, CloudFront, Auto Scaling, and CloudWatch.<br><br>
+          • Strong understanding of data analysis, statistics, regression techniques, and Python-based analytics.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="hidden">
+    <div class="section-title">
+      <h2>Featured Projects</h2>
+      <p>
+        Some of the interactive and modern applications I have designed and developed.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="project">
+        </div>
+
+        <div class="project-content">
+          <h3>ECRN System</h3>
+          <p>
+            Automated tracking, approval, and recovery management platform successfully deployed across multiple business verticals for streamlined customer change request processing.
+          </p>
+
+          <div class="tags">
+            <div class="tag">React</div>
+            <div class="tag">Node</div>
+            <div class="tag">Enterprise</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="project">
+        </div>
+
+        <div class="project-content">
+          <h3>Recovery Tracking System</h3>
+          <p>
+            Developed and deployed an independent recovery tracking solution with dashboards, workflow automation, notifications, and reporting features.
+          </p>
+
+          <div class="tags">
+            <div class="tag">HTML</div>
+            <div class="tag">CSS</div>
+            <div class="tag">Dashboards</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="project">
+        </div>
+
+        <div class="project-content">
+          <h3>Automated Challan System</h3>
+          <p>
+            Built a complete challan automation system using Java, JDBC, SQL, HTML, CSS, and JavaScript to streamline challan creation and reduce manual errors.
+          </p>
+
+          <div class="tags">
+            <div class="tag">Java</div>
+            <div class="tag">Spring</div>
+            <div class="tag">JDBC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact hidden">
+    <div class="contact-box">
+      <h2>Let's Build Something Amazing</h2>
+      <p>
+        Open to exciting software engineering opportunities, enterprise application development, and innovative AI-driven digital transformation projects.
+      </p>
+
+      <button class="btn btn-primary" onclick="openContactModal()">Contact Me</button>
+
+      <div class="socials">
+        <a href="mailto:Anandkumar292000@gmail.com" class="social" style="text-decoration:none; color:white;">📧</a>
+        <a href="https://www.linkedin.com/in/anand-kumar-51b521194" target="_blank" class="social" style="text-decoration:none; color:white;">💼</a>
+        <a href="tel:+917654165473" class="social" style="text-decoration:none; color:white;">📱</a>
+        <a href="#home" class="social" style="text-decoration:none; color:white;">🚀</a>
+      </div>
+    </div>
+  </section>
+
+    <div class="contact-modal" id="contactModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeContactModal()">✕</span>
+      <h2>Contact Details</h2>
+
+      <div class="contact-detail">
+        📧 Email<br>
+        <a href="mailto:Anandkumar292000@gmail.com">Anandkumar292000@gmail.com</a>
+      </div>
+
+      <div class="contact-detail">
+        📱 Mobile<br>
+        <a href="tel:+917654165473">+91 7654165473</a>
+      </div>
+
+      <div class="contact-detail">
+        💼 LinkedIn<br>
+        <a href="https://www.linkedin.com/in/anand-kumar-51b521194" target="_blank">
+          linkedin.com/in/anand-kumar-51b521194
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Anand Kumar Portfolio | Java Full Stack Developer ✨
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+
+    const skillBars = document.querySelectorAll('.skill-fill');
+
+    const animateSkills = () => {
+      skillBars.forEach((bar) => {
+        const width = bar.getAttribute('data-width');
+        bar.style.width = width;
+      });
+    };
+
+    window.addEventListener('scroll', () => {
+      const skillsSection = document.querySelector('#skills');
+      const rect = skillsSection.getBoundingClientRect();
+
+      if(rect.top < window.innerHeight - 100) {
+        animateSkills();
+      }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      const cards = document.querySelectorAll('.project-card, .glass-card');
+
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(123,97,255,0.15), rgba(255,255,255,0.04))`;
+      });
+    });
+
+    function openContactModal() {
+      document.getElementById('contactModal').classList.add('active');
+    }
+
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.remove('active');
+    }
+
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('contactModal');
+
+      if (e.target === modal) {
+        closeContactModal();
+      }
+    });
+    
+  </script>
 </body>
 </html>
